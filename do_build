@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+gcc_ver=${gcc_ver:-"gcc4"}
+cp -a /builder/gcc-builder/${gcc_ver} /build/
+cd /build/${gcc_ver}
+
+./build-gcc.sh -T | tee /output/build.log
+./stage-gcc.sh
+./pack-gcc.sh
+
+cp packages/*.tgz /output/
